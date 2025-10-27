@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Subscribe | Pharma Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    :root {
+      --pharma-teal: #007C7A;
+      --pharma-teal-hover: #006b69;
+      --pharma-gray: #6b7280;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .plan-card {
+      transition: all 0.3s ease;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 124, 122, 0.2);
+    }
+
+    .plan-card.selected {
+      border-color: var(--pharma-teal);
+      background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 100%);
+    }
+
+    .badge-popular {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .frequency-option {
+      transition: all 0.3s ease;
+    }
+
+    .frequency-option:hover {
+      transform: scale(1.05);
+      border-color: var(--pharma-teal);
+    }
+
+    .frequency-option.selected {
+      border-color: var(--pharma-teal);
+      background: #f0fdfa;
+    }
+
+    .payment-option {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .payment-option:hover {
+      transform: translateY(-2px);
+      border-color: var(--pharma-teal);
+    }
+
+    .payment-option.selected {
+      border-color: var(--pharma-teal);
+      background: #f0fdfa;
+    }
+
+    .loading {
+      display: none;
+    }
+
+    .loading.active {
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+
+    .momo-colors {
+      background: linear-gradient(135deg, #8B008B 0%, #FF69B4 100%);
+    }
+
+    .momo-text {
+      color: #8B008B;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-teal-50/30 text-gray-800 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="images/logo.png" alt="Pharma Hub" class="h-10 w-auto">
+        <h1 class="text-xl font-bold" style="color:var(--pharma-teal)">Pharma Hub</h1>
+      </div>
+      <a href="dashboard.html" class="text-sm text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] font-medium transition flex items-center gap-1">
+        Dashboard
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <!-- Header Section -->
+    <div class="text-center mb-12 animate-slide-in">
+      <div class="inline-flex items-center gap-2 bg-teal-100 text-[var(--pharma-teal)] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        <span>💊</span>
+        Subscribe & Save
+      </div>
+      <h2 class="text-4xl font-bold mb-4" style="color:var(--pharma-teal)">Monthly Medication Refills</h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+        Never run out of your essential medications. Subscribe and get automatic refills delivered to your door.
+      </p>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="grid md:grid-cols-4 gap-6 mb-12 animate-slide-in">
+      <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+        <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+          💰
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Save 15%</h3>
+        <p class="text-sm text-gray-600">On every subscription order</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+        <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+          🚚
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Free Delivery</h3>
+        <p class="text-sm text-gray-600">No delivery fees ever</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+        <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+          ⏰
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Auto Refills</h3>
+        <p class="text-sm text-gray-600">Never forget to reorder</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+        <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
+          🔒
+        </div>
+        <h3 class="font-semibold text-gray-800 mb-2">Secure Payments</h3>
+        <p class="text-sm text-gray-600">Card & Mobile Money</p>
+      </div>
+    </div>
+
+    <!-- Subscription Plans -->
+    <div class="mb-12 animate-slide-in">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Choose Your Plan</h3>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Basic Plan -->
+        <div class="plan-card bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6" onclick="selectPlan('basic')">
+          <div class="mb-4">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Basic</h4>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold" style="color:var(--pharma-teal)">GHS 50</span>
+              <span class="text-gray-500">/month</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Up to 3 medications
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Free delivery
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              15% savings
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Email reminders
+            </li>
+          </ul>
+          <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 rounded-xl transition">
+            Select Plan
+          </button>
+        </div>
+
+        <!-- Standard Plan (Popular) -->
+        <div class="plan-card selected bg-white rounded-2xl shadow-xl border-2 border-[var(--pharma-teal)] p-6 relative" onclick="selectPlan('standard')">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="badge-popular">Most Popular</span>
+          </div>
+          <div class="mb-4">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Standard</h4>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold" style="color:var(--pharma-teal)">GHS 80</span>
+              <span class="text-gray-500">/month</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Up to 6 medications
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Free priority delivery
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              20% savings
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              SMS & email reminders
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Pharmacist support
+            </li>
+          </ul>
+          <button class="w-full bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
+            Select Plan
+          </button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="plan-card bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6" onclick="selectPlan('premium')">
+          <div class="mb-4">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Premium</h4>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-bold" style="color:var(--pharma-teal)">GHS 120</span>
+              <span class="text-gray-500">/month</span>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Unlimited medications
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Free same-day delivery
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              25% savings
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              24/7 pharmacist support
+            </li>
+            <li class="flex items-center gap-2 text-sm text-gray-700">
+              <span class="text-green-500">✓</span>
+              Health tracking app
+            </li>
+          </ul>
+          <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 rounded-xl transition">
+            Select Plan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery Frequency -->
+    <div class="max-w-3xl mx-auto mb-12 animate-slide-in">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Choose Delivery Frequency</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="frequency-option selected border-2 rounded-xl p-4 cursor-pointer text-center" onclick="selectFrequency('monthly')">
+            <input type="radio" name="frequency" value="monthly" checked class="mb-2">
+            <p class="font-semibold text-gray-800">Monthly</p>
+            <p class="text-sm text-gray-500">Every 30 days</p>
+          </div>
+          <div class="frequency-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer text-center" onclick="selectFrequency('biweekly')">
+            <input type="radio" name="frequency" value="biweekly" class="mb-2">
+            <p class="font-semibold text-gray-800">Bi-weekly</p>
+            <p class="text-sm text-gray-500">Every 14 days</p>
+          </div>
+          <div class="frequency-option border-2 border-gray-200 rounded-xl p-4 cursor-pointer text-center" onclick="selectFrequency('quarterly')">
+            <input type="radio" name="frequency" value="quarterly" class="mb-2">
+            <p class="font-semibold text-gray-800">Quarterly</p>
+            <p class="text-sm text-gray-500">Every 90 days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Section -->
+    <div class="max-w-3xl mx-auto mb-12 animate-slide-in">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Payment Information</h3>
+        
+        <!-- Plan Summary -->
+        <div class="bg-teal-50 rounded-xl p-6 mb-6">
+          <h4 class="font-semibold text-gray-800 mb-4">Order Summary</h4>
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Plan:</span>
+              <span id="selected-plan" class="font-semibold">Standard</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Frequency:</span>
+              <span id="selected-frequency" class="font-semibold">Monthly</span>
+            </div>
+            <div class="flex justify-between border-t border-gray-200 pt-3">
+              <span class="text-lg font-bold text-gray-800">Total:</span>
+              <span id="selected-amount" class="text-lg font-bold" style="color:var(--pharma-teal)">GHS 80.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="mb-6">
+          <h4 class="font-semibold text-gray-800 mb-4">Payment Method</h4>
+          <div class="grid md:grid-cols-2 gap-4">
+            <!-- Card Payment -->
+            <div class="payment-option selected border-2 border-[var(--pharma-teal)] rounded-xl p-4 bg-teal-50" onclick="selectPaymentMethod('card')">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">💳</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-800">Pay with Card</p>
+                  <p class="text-sm text-gray-600">Visa, Mastercard, etc.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Money -->
+            <div class="payment-option border-2 border-gray-200 rounded-xl p-4 bg-white" onclick="selectPaymentMethod('momo')">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl text-white">📱</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-800">Mobile Money</p>
+                  <p class="text-sm text-gray-600">MTN, Vodafone, AirtelTigo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Money Phone Input (Hidden by default) -->
+        <div id="momo-phone-section" class="hidden mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Money Number</label>
+          <div class="flex gap-3">
+            <select id="momo-network" class="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent">
+              <option value="MTN">MTN</option>
+              <option value="Vodafone">Vodafone</option>
+              <option value="AirtelTigo">AirtelTigo</option>
+            </select>
+            <input type="tel" id="momo-phone" placeholder="050 123 4567" 
+                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent outline-none"
+                   pattern="[0-9]{10}">
+          </div>
+          <p class="text-xs text-gray-500 mt-2">Enter your 10-digit mobile money number</p>
+        </div>
+
+        <!-- Subscribe Button -->
+        <button onclick="handleSubscribe()" id="subscribe-btn" class="w-full bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 text-white text-lg font-bold py-5 rounded-xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
+          <span id="subscribe-text">Subscribe with Card</span>
+          <span class="loading">⏳</span>
+        </button>
+        <p class="text-sm text-gray-500 text-center mt-4">Cancel anytime. No hidden fees.</p>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="max-w-3xl mx-auto mt-16 animate-slide-in">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h3>
+      <div class="space-y-4">
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+          <h4 class="font-semibold text-gray-800 mb-2">How does the subscription work?</h4>
+          <p class="text-sm text-gray-600">Simply choose your plan and delivery frequency. We'll automatically prepare and deliver your medications on schedule.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+          <h4 class="font-semibold text-gray-800 mb-2">Can I change or cancel my subscription?</h4>
+          <p class="text-sm text-gray-600">Yes! You can modify, pause, or cancel your subscription at any time from your dashboard with no penalties.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+          <h4 class="font-semibold text-gray-800 mb-2">What if I need to adjust my medication list?</h4>
+          <p class="text-sm text-gray-600">You can add or remove medications from your subscription at any time through your account settings.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+          <h4 class="font-semibold text-gray-800 mb-2">Is my payment information secure?</h4>
+          <p class="text-sm text-gray-600">Yes! We use Paystack for all payments. Your payment details are never stored on our servers and all transactions are encrypted.</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+          <h4 class="font-semibold text-gray-800 mb-2">How does Mobile Money payment work?</h4>
+          <p class="text-sm text-gray-600">You'll receive a prompt on your phone to authorize the payment. Enter your MoMo PIN to complete the transaction securely.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-gray-400 text-sm py-6 mt-8">
+    © 2025 Pharma Hub • All rights reserved
+  </footer>
+
+  <script>
+    // Paystack public key (test key for demo - replace with live key in production)
+    const PAYSTACK_PUBLIC_KEY = 'pk_test_f0d6b9ae7a1d88e1c3dde3c181d9328d4d95823e';
+    
+    let selectedPlanType = 'standard';
+    let selectedFrequency = 'monthly';
+    let selectedPaymentMethod = 'card';
+
+    // Plan pricing
+    const planPrices = {
+      basic: 50.00,
+      standard: 80.00,
+      premium: 120.00
+    };
+
+    function selectPlan(plan) {
+      selectedPlanType = plan;
+      document.querySelectorAll('.plan-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      event.currentTarget.classList.add('selected');
+      updateOrderSummary();
+      showToast(`${plan.charAt(0).toUpperCase() + plan.slice(1)} plan selected`);
+    }
+
+    function selectFrequency(frequency) {
+      selectedFrequency = frequency;
+      document.querySelectorAll('.frequency-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      event.currentTarget.classList.add('selected');
+      const radio = event.currentTarget.querySelector('input[type="radio"]');
+      radio.checked = true;
+      updateOrderSummary();
+    }
+
+    function selectPaymentMethod(method) {
+      selectedPaymentMethod = method;
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('selected');
+        option.classList.remove('border-[var(--pharma-teal)]');
+        option.classList.remove('bg-teal-50');
+        option.classList.add('border-gray-200');
+        option.classList.add('bg-white');
+      });
+      
+      event.currentTarget.classList.add('selected');
+      event.currentTarget.classList.add('border-[var(--pharma-teal)]');
+      event.currentTarget.classList.add('bg-teal-50');
+      event.currentTarget.classList.remove('border-gray-200');
+      event.currentTarget.classList.remove('bg-white');
+
+      // Show/hide mobile money phone input
+      const momoSection = document.getElementById('momo-phone-section');
+      const subscribeText = document.getElementById('subscribe-text');
+      
+      if (method === 'momo') {
+        momoSection.classList.remove('hidden');
+        subscribeText.textContent = 'Subscribe with Mobile Money';
+      } else {
+        momoSection.classList.add('hidden');
+        subscribeText.textContent = 'Subscribe with Card';
+      }
+    }
+
+    function updateOrderSummary() {
+      document.getElementById('selected-plan').textContent = selectedPlanType.charAt(0).toUpperCase() + selectedPlanType.slice(1);
+      document.getElementById('selected-frequency').textContent = selectedFrequency.charAt(0).toUpperCase() + selectedFrequency.slice(1);
+      document.getElementById('selected-amount').textContent = `GHS ${planPrices[selectedPlanType].toFixed(2)}`;
+    }
+
+    function validateMomoPhone() {
+      if (selectedPaymentMethod !== 'momo') return true;
+      
+      const phone = document.getElementById('momo-phone').value.replace(/\s/g, '');
+      const network = document.getElementById('momo-network').value;
+      
+      if (!phone) {
+        showToast('Please enter your mobile money number', 'error');
+        return false;
+      }
+      
+      if (phone.length !== 10 || !/^0[0-9]{9}$/.test(phone)) {
+        showToast('Please enter a valid 10-digit Ghanaian phone number', 'error');
+        return false;
+      }
+      
+      return true;
+    }
+
+    function handleSubscribe() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      
+      // Temporary: Create test user for development if none exists
+      if (!currentUser.email) {
+        const testUser = {
+          email: 'test@example.com',
+          name: 'Test User',
+          uid: 'test123'
+        };
+        localStorage.setItem('currentUser', JSON.stringify(testUser));
+        currentUser.email = testUser.email;
+        currentUser.name = testUser.name;
+        currentUser.uid = testUser.uid;
+        
+        // Also create user data entry
+        const userKey = `userData_${testUser.email}`;
+        const userData = {
+          email: testUser.email,
+          name: testUser.name,
+          subscription: null
+        };
+        localStorage.setItem(userKey, JSON.stringify(userData));
+        
+        showToast('Test user created for demo purposes', 'info');
+      }
+
+      // Validate mobile money phone if selected
+      if (selectedPaymentMethod === 'momo' && !validateMomoPhone()) {
+        return;
+      }
+
+      // Check if Paystack is loaded
+      if (typeof PaystackPop === 'undefined') {
+        showToast('Payment system is loading. Please wait...', 'error');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+        return;
+      }
+
+      // Show loading state
+      const subscribeBtn = document.getElementById('subscribe-btn');
+      subscribeBtn.disabled = true;
+      subscribeBtn.querySelector('.loading').classList.add('active');
+
+      if (selectedPaymentMethod === 'card') {
+        processCardPayment(currentUser);
+      } else if (selectedPaymentMethod === 'momo') {
+        processMomoPayment(currentUser);
+      }
+    }
+
+    function processCardPayment(currentUser) {
+      // Initialize payment with Paystack for card
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: currentUser.email,
+        amount: planPrices[selectedPlanType] * 100, // Convert to kobo
+        currency: 'GHS',
+        ref: 'PHSUB-' + Math.floor((Math.random() * 1000000000) + 1),
+        channels: ['card'],
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Plan Type",
+              variable_name: "plan_type",
+              value: selectedPlanType
+            },
+            {
+              display_name: "Delivery Frequency",
+              variable_name: "delivery_frequency",
+              value: selectedFrequency
+            },
+            {
+              display_name: "Payment Method",
+              variable_name: "payment_method",
+              value: "card"
+            }
+          ]
+        },
+        callback: function(response) {
+          // Payment successful
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          
+          if (response.status === 'success') {
+            saveSubscription(currentUser, response.reference, 'card');
+            showToast('Payment successful! Subscription activated. 🎉', 'success');
+            
+            setTimeout(() => {
+              window.location.href = 'dashboard.html';
+            }, 2000);
+          } else {
+            showToast('Payment failed. Please try again.', 'error');
+          }
+        },
+        onClose: function() {
+          // Payment modal closed
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          showToast('Payment cancelled', 'info');
+        },
+        onError: function(error) {
+          // Handle payment error
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          showToast('Payment error: ' + (error.message || 'Please try again'), 'error');
+          console.error('Paystack Error:', error);
+        }
+      });
+
+      handler.openIframe();
+    }
+
+    function processMomoPayment(currentUser) {
+      const phone = document.getElementById('momo-phone').value.replace(/\s/g, '');
+      const network = document.getElementById('momo-network').value;
+      
+      // Initialize payment with Paystack for mobile money
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: currentUser.email,
+        amount: planPrices[selectedPlanType] * 100, // Convert to kobo
+        currency: 'GHS',
+        ref: 'PHSUB-' + Math.floor((Math.random() * 1000000000) + 1),
+        channels: ['mobile_money'],
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Plan Type",
+              variable_name: "plan_type",
+              value: selectedPlanType
+            },
+            {
+              display_name: "Delivery Frequency",
+              variable_name: "delivery_frequency",
+              value: selectedFrequency
+            },
+            {
+              display_name: "Payment Method",
+              variable_name: "payment_method",
+              value: "mobile_money"
+            },
+            {
+              display_name: "Mobile Network",
+              variable_name: "mobile_network",
+              value: network
+            },
+            {
+              display_name: "Phone Number",
+              variable_name: "phone_number",
+              value: phone
+            }
+          ]
+        },
+        callback: function(response) {
+          // Payment successful
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          
+          if (response.status === 'success') {
+            saveSubscription(currentUser, response.reference, 'mobile_money', phone, network);
+            showToast('Mobile Money payment successful! Subscription activated. 🎉', 'success');
+            
+            setTimeout(() => {
+              window.location.href = 'dashboard.html';
+            }, 2000);
+          } else {
+            showToast('Mobile Money payment failed. Please try again.', 'error');
+          }
+        },
+        onClose: function() {
+          // Payment modal closed
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          showToast('Payment cancelled', 'info');
+        },
+        onError: function(error) {
+          // Handle payment error
+          document.getElementById('subscribe-btn').querySelector('.loading').classList.remove('active');
+          document.getElementById('subscribe-btn').disabled = false;
+          showToast('Mobile Money payment error: ' + (error.message || 'Please try again'), 'error');
+          console.error('Paystack MoMo Error:', error);
+        }
+      });
+
+      handler.openIframe();
+    }
+
+    function saveSubscription(currentUser, paymentReference, paymentMethod, phone = null, network = null) {
+      const subscription = {
+        plan: selectedPlanType,
+        frequency: selectedFrequency,
+        amount: planPrices[selectedPlanType],
+        startDate: new Date().toISOString(),
+        nextBillingDate: calculateNextBillingDate(),
+        status: 'active',
+        paymentReference: paymentReference,
+        paymentMethod: paymentMethod,
+        ...(paymentMethod === 'mobile_money' && {
+          momoPhone: phone,
+          momoNetwork: network
+        })
+      };
+
+      // Save to localStorage
+      localStorage.setItem('subscription', JSON.stringify(subscription));
+
+      // Also save to user data if logged in
+      if (currentUser.email) {
+        const userKey = `userData_${currentUser.email || currentUser.uid}`;
+        const userData = JSON.parse(localStorage.getItem(userKey) || '{}');
+        userData.subscription = subscription;
+        localStorage.setItem(userKey, JSON.stringify(userData));
+      }
+    }
+
+    function calculateNextBillingDate() {
+      const now = new Date();
+      switch(selectedFrequency) {
+        case 'monthly':
+          return new Date(now.setMonth(now.getMonth() + 1)).toISOString();
+        case 'biweekly':
+          return new Date(now.setDate(now.getDate() + 14)).toISOString();
+        case 'quarterly':
+          return new Date(now.setMonth(now.getMonth() + 3)).toISOString();
+        default:
+          return new Date(now.setMonth(now.getMonth() + 1)).toISOString();
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-6 right-6 px-6 py-3 rounded-xl shadow-lg text-white font-medium z-50 animate-slide-in ${type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Initialize order summary on page load
+    updateOrderSummary();
+
+    // Check Paystack on load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page loaded, checking Paystack...');
+      if (typeof PaystackPop === 'undefined') {
+        console.warn('Paystack not loaded yet, retrying...');
+        setTimeout(() => {
+          if (typeof PaystackPop === 'undefined') {
+            console.error('Paystack failed to load');
+            showToast('Payment system loading...', 'info');
+          } else {
+            console.log('Paystack loaded successfully');
+          }
+        }, 2000);
+      } else {
+        console.log('Paystack loaded successfully');
+      }
+    });
+  </script>
+
+</body>
+</html>

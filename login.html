@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pharma Hub | Sign In or Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --pharma-teal: #007C7A;
+      --pharma-teal-hover: #006b69;
+      --pharma-gray: #6b7280;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .tab-active {
+      background-color: var(--pharma-teal);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .tab-inactive {
+      background-color: transparent;
+      color: var(--pharma-gray);
+      transition: all 0.3s ease;
+    }
+    
+    .input-focus:focus {
+      border-color: var(--pharma-teal);
+      box-shadow: 0 0 0 3px rgba(0, 124, 122, 0.1);
+    }
+    
+    .btn-primary {
+      background-color: var(--pharma-teal);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--pharma-teal-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 124, 122, 0.2);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .social-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="text-gray-800">
+  <main class="min-h-screen flex items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8 card-hover fade-in">
+      <!-- Logo and Header -->
+      <div class="text-center mb-8">
+        <a href="index.html" class="flex items-center justify-center gap-3 mb-4">
+          <img src="images/logo.png" alt="Pharma Hub Logo" class="h-14">
+        </a>
+        <p class="text-gray-500 mt-2">Sign in to your account or create a new one</p>
+      </div>
+
+      <!-- User Info (if signed in) -->
+      <div id="user-info" class="hidden text-center mb-6 p-4 bg-teal-50 rounded-xl border border-teal-100">
+        <div class="flex items-center gap-4">
+          <img id="user-photo" class="w-12 h-12 rounded-full border-2 border-white shadow" src="" alt="User photo">
+          <div class="text-left flex-1">
+            <p id="user-name" class="font-medium text-gray-800"></p>
+            <p id="user-email" class="text-sm text-gray-500"></p>
+          </div>
+          <button id="signout-btn" class="text-sm text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] transition-colors flex items-center gap-1">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div id="auth-tabs" class="flex bg-gray-100 rounded-xl p-1 mb-6">
+        <button id="tab-signin" class="flex-1 py-3 font-medium rounded-lg tab-active">
+          <i class="fas fa-sign-in-alt mr-2"></i>
+          Sign In
+        </button>
+        <button id="tab-signup" class="flex-1 py-3 font-medium rounded-lg tab-inactive">
+          <i class="fas fa-user-plus mr-2"></i>
+          Create Account
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form id="auth-form" class="space-y-5">
+        <div id="name-field" class="hidden fade-in">
+          <label class="text-sm font-medium text-gray-700 mb-2 block">Full Name</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-user text-gray-400"></i>
+            </div>
+            <input id="name" type="text"
+              class="w-full border border-gray-300 rounded-xl pl-10 pr-4 py-3 input-focus focus:outline-none"
+              placeholder="Your full name" />
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <label class="text-sm font-medium text-gray-700 mb-2 block">Email Address</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-envelope text-gray-400"></i>
+            </div>
+            <input id="email" type="email"
+              class="w-full border border-gray-300 rounded-xl pl-10 pr-4 py-3 input-focus focus:outline-none"
+              placeholder="you@example.com" />
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <label class="text-sm font-medium text-gray-700 mb-2 block">Password</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="fas fa-lock text-gray-400"></i>
+            </div>
+            <input id="password" type="password"
+              class="w-full border border-gray-300 rounded-xl pl-10 pr-4 py-3 input-focus focus:outline-none"
+              placeholder="************" />
+          </div>
+        </div>
+
+        <div id="form-error" class="text-sm text-red-600 bg-red-50 p-3 rounded-lg hidden">
+          <i class="fas fa-exclamation-circle mr-2"></i>
+          <span id="error-text"></span>
+        </div>
+
+        <div class="pt-2">
+          <button id="primary-btn" type="button"
+            class="w-full py-3 rounded-xl font-semibold text-white btn-primary flex items-center justify-center gap-2">
+            <i class="fas fa-spinner fa-spin hidden" id="btn-spinner"></i>
+            <span id="btn-text">Sign In</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-200"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-3 bg-white text-gray-500">or continue with</span>
+        </div>
+      </div>
+
+      <!-- Social Buttons -->
+      <div class="grid grid-cols-2 gap-3">
+        <button id="google-btn"
+          class="social-btn flex items-center justify-center gap-3 border border-gray-300 rounded-xl py-3 bg-white hover:bg-gray-50 transition-colors">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+          <span class="font-medium text-gray-700">Google</span>
+        </button>
+
+        <button id="apple-btn"
+          class="social-btn flex items-center justify-center gap-3 border border-gray-800 rounded-xl py-3 bg-black hover:bg-gray-900 transition-colors text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor" class="w-5 h-5">
+            <path d="M318.7 268.7c-.2-37.3 16.3-65.3 50-85.9-18.9-27.6-47.5-43-84.5-46.4-35.5-3.2-74 20.9-87.8 20.9-14.2 0-48.4-20.3-75.1-20.3C60.5 137 2 183.5 2 267.9c0 49.4 18.2 102.9 40.8 137.1 19 28.2 41.6 59.7 71.3 58.6 28.5-1.1 39.3-18.8 73.6-18.8 34.3 0 43.8 18.8 74.7 18.2 30.8-.6 50.3-28.6 69.1-56.8 21.5-31.5 30.3-62 30.2-63.6-.1-.1-57.7-22.2-57.8-89.9zm-56.2-162.5c26.9-32.5 24.5-62.1 23.5-73.2-23.3 1.3-50.4 15.4-66.7 34.3-17.7 20.4-27.8 45.5-25.7 72.1 25.5 2 48.9-11 68.9-33.2z"/>
+          </svg>
+          <span class="font-medium">Apple</span>
+        </button>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-8 text-center">
+        By continuing, you agree to our
+        <a href="#" class="underline text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] transition-colors">Terms of Service</a>
+        and
+        <a href="#" class="underline text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] transition-colors">Privacy Policy</a>.
+      </p>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay"
+    class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center hidden z-50">
+    <div class="text-center max-w-xs">
+      <div class="w-16 h-16 border-4 border-[var(--pharma-teal)] border-t-transparent rounded-full animate-spin mx-auto mb-4">
+      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">Signing you in</h3>
+      <p class="text-gray-600">Redirecting to your dashboard...</p>
+    </div>
+  </div>
+
+  <!-- Toast System -->
+  <script src="js/toast.js"></script>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- Main Script -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzzDaczrgrKbEWm1Swg0FuxYU8sxKsd5U",
+      authDomain: "pharma-hub-989ca.firebaseapp.com",
+      projectId: "pharma-hub-989ca",
+      storageBucket: "pharma-hub-989ca.firebasestorage.app",
+      messagingSenderId: "6589041003",
+      appId: "1:6589041003:web:e2c492b38d09fca9e5642e",
+      measurementId: "G-MX8FJGFLPC"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Friendly error handler
+    function showFriendlyError(error) {
+      let msg = "Something went wrong. Please try again.";
+      switch (error.code) {
+        case "auth/invalid-email": msg = "Please enter a valid email address."; break;
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+        case "auth/invalid-login-credentials": msg = "Invalid email or password. Please try again."; break;
+        case "auth/email-already-in-use": msg = "That email is already registered. Try signing in instead."; break;
+        case "auth/weak-password": msg = "Your password should be at least 6 characters long."; break;
+        case "auth/popup-closed-by-user": msg = "Sign-in window was closed before completing. Please try again."; break;
+        case "auth/network-request-failed": msg = "Network error. Please check your internet connection."; break;
+        default: msg = "An unexpected error occurred. Please try again.";
+      }
+      showFormError(msg);
+    }
+
+    // Show form error
+    function showFormError(message) {
+      const formError = document.getElementById('form-error');
+      const errorText = document.getElementById('error-text');
+      errorText.textContent = message;
+      formError.classList.remove('hidden');
+      formError.classList.add('fade-in');
+      
+      // Auto-hide error after 5 seconds
+      setTimeout(() => {
+        formError.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Hide form error
+    function hideFormError() {
+      document.getElementById('form-error').classList.add('hidden');
+    }
+
+    // Elements
+    const tabSignIn = document.getElementById('tab-signin');
+    const tabSignUp = document.getElementById('tab-signup');
+    const nameField = document.getElementById('name-field');
+    const primaryBtn = document.getElementById('primary-btn');
+    const emailEl = document.getElementById('email');
+    const passwordEl = document.getElementById('password');
+    const nameEl = document.getElementById('name');
+    const googleBtn = document.getElementById('google-btn');
+    const appleBtn = document.getElementById('apple-btn');
+    const userInfo = document.getElementById('user-info');
+    const userPhoto = document.getElementById('user-photo');
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const signOutBtn = document.getElementById('signout-btn');
+    const authTabs = document.getElementById('auth-tabs');
+    const authForm = document.getElementById('auth-form');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const btnText = document.getElementById('btn-text');
+
+    let mode = 'signin';
+
+    function setMode(m) {
+      mode = m;
+      hideFormError();
+      
+      if (m === 'signin') {
+        nameField.classList.add('hidden');
+        btnText.textContent = 'Sign In';
+        tabSignIn.classList.remove('tab-inactive');
+        tabSignIn.classList.add('tab-active');
+        tabSignUp.classList.remove('tab-active');
+        tabSignUp.classList.add('tab-inactive');
+      } else {
+        nameField.classList.remove('hidden');
+        btnText.textContent = 'Create Account';
+        tabSignUp.classList.remove('tab-inactive');
+        tabSignUp.classList.add('tab-active');
+        tabSignIn.classList.remove('tab-active');
+        tabSignIn.classList.add('tab-inactive');
+      }
+    }
+
+    tabSignIn.addEventListener('click', () => setMode('signin'));
+    tabSignUp.addEventListener('click', () => setMode('signup'));
+    setMode('signin');
+
+    // Show loading state on button
+    function setButtonLoading(isLoading) {
+      if (isLoading) {
+        btnSpinner.classList.remove('hidden');
+        primaryBtn.disabled = true;
+      } else {
+        btnSpinner.classList.add('hidden');
+        primaryBtn.disabled = false;
+      }
+    }
+
+    // Email/password sign in or sign up
+    primaryBtn.addEventListener('click', async () => {
+      const email = emailEl.value.trim();
+      const password = passwordEl.value.trim();
+      const name = nameEl.value.trim();
+
+      if (!email || !password) {
+        showFormError("Please enter your email and password.");
+        return;
+      }
+
+      if (mode === 'signup' && !name) {
+        showFormError("Please enter your full name.");
+        return;
+      }
+
+      setButtonLoading(true);
+      hideFormError();
+
+      try {
+        if (mode === 'signin') {
+          const userCredential = await auth.signInWithEmailAndPassword(email, password);
+          const user = userCredential.user;
+          localStorage.setItem('currentUser', JSON.stringify({
+            email: user.email, name: user.displayName || '', photo: user.photoURL || ''
+          }));
+          showToast("Signed in successfully!", "success");
+          showUser(user);
+        } else {
+          const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+          const user = userCredential.user;
+          await user.updateProfile({ displayName: name });
+          localStorage.setItem('currentUser', JSON.stringify({
+            email: user.email, name, photo: ''
+          }));
+          showToast("Account created successfully!", "success");
+          showUser(user);
+        }
+      } catch (error) {
+        showFriendlyError(error);
+      } finally {
+        setButtonLoading(false);
+      }
+    });
+
+    // Google sign-in
+    googleBtn.addEventListener('click', async () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        localStorage.setItem('currentUser', JSON.stringify({
+          email: user.email, name: user.displayName, photo: user.photoURL
+        }));
+        showToast("Welcome back, " + user.displayName + "!", "success");
+        showUser(user);
+      } catch (error) {
+        showFriendlyError(error);
+      }
+    });
+
+    // Apple sign-in
+    appleBtn.addEventListener('click', async () => {
+      const provider = new firebase.auth.OAuthProvider('apple.com');
+      try {
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        localStorage.setItem('currentUser', JSON.stringify({
+          email: user.email, name: user.displayName, photo: user.photoURL
+        }));
+        showToast("Signed in successfully with Apple!", "success");
+        showUser(user);
+      } catch (error) {
+        showFriendlyError(error);
+      }
+    });
+
+    // Sign out
+    signOutBtn.addEventListener('click', async () => {
+      await auth.signOut();
+      localStorage.removeItem('currentUser');
+      userInfo.classList.add('hidden');
+      authTabs.classList.remove('hidden');
+      authForm.classList.remove('hidden');
+      showToast("Signed out successfully.", "success");
+    });
+
+    // Show user info + redirect
+    function showUser(user) {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      loadingOverlay.classList.remove('hidden');
+      
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 1500);
+    }
+
+    // Check if user is already logged in
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        userInfo.classList.remove('hidden');
+        authTabs.classList.add('hidden');
+        authForm.classList.add('hidden');
+        
+        userName.textContent = user.displayName || 'User';
+        userEmail.textContent = user.email;
+        userPhoto.src = user.photoURL || 'https://www.svgrepo.com/show/533260/user.svg';
+      } else {
+        // User is signed out
+        userInfo.classList.add('hidden');
+        authTabs.classList.remove('hidden');
+        authForm.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

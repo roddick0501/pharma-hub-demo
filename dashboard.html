@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Dashboard | Pharma Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --pharma-teal: #007C7A;
+      --pharma-teal-hover: #006b69;
+      --pharma-gray: #6b7280;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.5s ease-out;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 124, 122, 0.15);
+    }
+    
+    .tab-button {
+      transition: all 0.3s ease;
+    }
+    
+    .tab-button.active {
+      background-color: var(--pharma-teal);
+      color: white;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-teal-50/30 text-gray-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="images/logo.png" alt="Pharma Hub Logo" class="h-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--pharma-teal)] to-teal-600 items-center justify-center text-white font-bold text-lg hidden">
+          P
+        </div>
+        <h1 class="text-xl font-bold" style="color:var(--pharma-teal)">Pharma Hub</h1>
+      </a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="text-gray-600 hover:text-[var(--pharma-teal)] transition-colors flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-teal-50">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </a>
+        <a href="cart.html" class="text-gray-600 hover:text-[var(--pharma-teal)] transition-colors flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-teal-50">
+          <i class="fas fa-shopping-cart"></i>
+          <span>Cart</span>
+        </a>
+        <button id="signout-btn" class="bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 text-white px-4 py-2 rounded-lg transition shadow-md hover:shadow-lg flex items-center gap-2">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Sign Out</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 py-10 space-y-8">
+
+    <!-- Welcome Section -->
+    <div class="mb-2 animate-slide-in">
+      <h1 class="text-4xl font-bold text-gray-900">Dashboard</h1>
+      <p class="text-gray-600 mt-2">Manage your orders and account information</p>
+    </div>
+
+    <!-- Profile Section -->
+    <section class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover animate-slide-in">
+      <div class="flex flex-col md:flex-row md:items-center gap-5">
+        <div class="relative">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--pharma-teal)] to-teal-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+            <span id="user-initial">U</span>
+          </div>
+          <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-green-500 rounded-full border-3 border-white flex items-center justify-center shadow">
+            <i class="fas fa-check text-white text-xs"></i>
+          </div>
+        </div>
+        <div class="flex-1">
+          <h2 id="user-name" class="text-2xl font-bold text-gray-900">Welcome back!</h2>
+          <p id="user-email" class="text-gray-600 mt-1"></p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <div class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+              <i class="fas fa-medkit"></i>
+              Verified Customer
+            </div>
+            <div class="bg-purple-50 text-purple-700 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+              <i class="fas fa-shield-alt"></i>
+              Secure Account
+            </div>
+          </div>
+        </div>
+        <button id="edit-profile-btn" class="bg-teal-50 hover:bg-teal-100 text-[var(--pharma-teal)] px-5 py-2.5 rounded-xl transition font-semibold flex items-center gap-2 shadow-sm">
+          <i class="fas fa-edit"></i>
+          Edit Profile
+        </button>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 animate-slide-in">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg">
+            <i class="fas fa-shopping-bag text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-sm font-medium">Total Orders</p>
+            <p id="total-orders" class="text-2xl font-bold text-gray-900">0</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white shadow-lg">
+            <i class="fas fa-check-circle text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-sm font-medium">Completed</p>
+            <p id="delivered-orders" class="text-2xl font-bold text-gray-900">0</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center text-white shadow-lg">
+            <i class="fas fa-clock text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-sm font-medium">Pending</p>
+            <p id="pending-orders" class="text-2xl font-bold text-gray-900">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
+            <i class="fas fa-dollar-sign text-xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-500 text-sm font-medium">Total Spent</p>
+            <p id="total-spent" class="text-2xl font-bold text-gray-900">GHS 0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Tabs -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-2 flex gap-2 animate-slide-in">
+      <button id="tab-orders" class="tab-button active flex-1 py-3 px-6 font-semibold text-gray-600 transition-all">
+        <i class="fas fa-shopping-bag mr-2"></i>
+        My Orders
+      </button>
+      <button id="tab-subscriptions" class="tab-button flex-1 py-3 px-6 font-semibold text-gray-600 hover:bg-gray-50 rounded-xl transition-all">
+        <i class="fas fa-sync mr-2"></i>
+        Subscriptions
+      </button>
+      <button id="tab-prescriptions" class="tab-button flex-1 py-3 px-6 font-semibold text-gray-600 hover:bg-gray-50 rounded-xl transition-all">
+        <i class="fas fa-prescription mr-2"></i>
+        Prescriptions
+      </button>
+    </div>
+
+    <!-- Orders Section -->
+    <section id="orders-section" class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 animate-slide-in">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h3 class="text-2xl font-bold" style="color:var(--pharma-teal)">My Orders</h3>
+          <p class="text-gray-500 text-sm mt-1">Track and manage your recent orders</p>
+        </div>
+        <button id="refresh-orders" class="text-sm text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] transition-colors flex items-center gap-2 px-4 py-2 bg-teal-50 hover:bg-teal-100 rounded-xl font-semibold">
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </button>
+      </div>
+
+      <div id="orders-list" class="space-y-4"></div>
+    </section>
+
+    <!-- Subscriptions Section -->
+    <section id="subscriptions-section" class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h3 class="text-2xl font-bold" style="color:var(--pharma-teal)">My Subscriptions</h3>
+          <p class="text-gray-500 text-sm mt-1">Manage your medication subscriptions</p>
+        </div>
+        <a href="subscribe.html" class="text-sm text-white bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 transition flex items-center gap-2 px-4 py-2 rounded-xl font-semibold shadow-md">
+          <i class="fas fa-plus"></i>
+          New Subscription
+        </a>
+      </div>
+
+      <div id="subscriptions-list" class="space-y-4"></div>
+    </section>
+
+    <!-- Prescriptions Section -->
+    <section id="prescriptions-section" class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hidden">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h3 class="text-2xl font-bold" style="color:var(--pharma-teal)">My Prescriptions</h3>
+          <p class="text-gray-500 text-sm mt-1">Manage your medical prescriptions</p>
+        </div>
+        <button id="add-prescription" class="text-sm text-white bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 transition flex items-center gap-2 px-4 py-2 rounded-xl font-semibold shadow-md">
+          <i class="fas fa-plus"></i>
+          Add Prescription
+        </button>
+      </div>
+
+      <div id="prescriptions-list" class="space-y-4"></div>
+    </section>
+
+    <!-- Quick Actions Section -->
+    <section class="grid md:grid-cols-3 gap-6 animate-slide-in">
+      <a href="index.html" class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white card-hover shadow-lg">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur">
+            <i class="fas fa-shopping-cart text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg">Shop Now</h4>
+            <p class="text-sm opacity-90">Browse products</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="subscribe.html" class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white card-hover shadow-lg">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur">
+            <i class="fas fa-sync-alt text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg">Subscribe</h4>
+            <p class="text-sm opacity-90">Monthly refills</p>
+          </div>
+        </div>
+      </a>
+
+      <button onclick="contactSupport()" class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white card-hover shadow-lg text-left">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur">
+            <i class="fas fa-headset text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg">Support</h4>
+            <p class="text-sm opacity-90">Get help 24/7</p>
+          </div>
+        </div>
+      </button>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-gray-400 text-sm py-8 border-t border-gray-100 mt-12">
+    <p>© 2025 Pharma Hub • All rights reserved</p>
+  </footer>
+
+  <script>
+    // Load orders from localStorage (shared across users for demo)
+    function getOrders() {
+      return JSON.parse(localStorage.getItem('orders') || '[]');
+    }
+
+    function getSubscription() {
+      return JSON.parse(localStorage.getItem('subscription') || 'null');
+    }
+
+    // Elements
+    const userName = document.getElementById('user-name');
+    const userEmail = document.getElementById('user-email');
+    const userInitial = document.getElementById('user-initial');
+    const ordersList = document.getElementById('orders-list');
+    const subscriptionsList = document.getElementById('subscriptions-list');
+    const prescriptionsList = document.getElementById('prescriptions-list');
+    const totalOrdersEl = document.getElementById('total-orders');
+    const deliveredOrdersEl = document.getElementById('delivered-orders');
+    const pendingOrdersEl = document.getElementById('pending-orders');
+    const totalSpentEl = document.getElementById('total-spent');
+
+    // Load user info
+    function loadUser() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      if (currentUser.email) {
+        const name = currentUser.name || currentUser.email.split('@')[0];
+        userName.textContent = `Hi, ${name}!`;
+        userEmail.textContent = currentUser.email;
+        userInitial.textContent = name.charAt(0).toUpperCase();
+      } else {
+        userName.textContent = 'Welcome back!';
+        userEmail.textContent = 'guest@pharmahub.com';
+        userInitial.textContent = 'G';
+      }
+    }
+
+    // Update statistics
+    function updateStats() {
+      const orders = getOrders();
+      totalOrdersEl.textContent = orders.length;
+      
+      const paidOrders = orders.filter(o => o.status === 'Paid').length;
+      deliveredOrdersEl.textContent = paidOrders;
+      
+      const pendingOrders = orders.filter(o => o.status === 'Pending').length;
+      pendingOrdersEl.textContent = pendingOrders;
+
+      const totalSpent = orders.reduce((sum, order) => sum + order.total, 0);
+      totalSpentEl.textContent = `GHS ${totalSpent.toFixed(2)}`;
+    }
+
+    // Render orders
+    function renderOrders() {
+      const orders = getOrders();
+      
+      if (!orders.length) {
+        ordersList.innerHTML = `
+          <div class="text-center py-12">
+            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-shopping-bag text-gray-300 text-3xl"></i>
+            </div>
+            <p class="text-gray-500 text-lg mb-2">No orders yet</p>
+            <p class="text-gray-400 text-sm mb-4">Your orders will appear here once you make a purchase</p>
+            <a href="index.html" class="inline-block px-6 py-3 bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 text-white rounded-xl hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 transition font-semibold shadow-lg">
+              Start Shopping
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      ordersList.innerHTML = orders.map(order => {
+        const isPaid = order.status === 'Paid';
+        const statusClass = isPaid 
+          ? 'bg-green-100 text-green-700 border-green-200' 
+          : 'bg-yellow-100 text-yellow-700 border-yellow-200';
+        const statusIcon = isPaid ? 'fa-check-circle' : 'fa-clock';
+        
+        return `
+        <div class="border border-gray-100 rounded-2xl p-5 card-hover">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-start gap-4">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-50 to-teal-100 flex items-center justify-center">
+                  <i class="fas fa-pills text-[var(--pharma-teal)] text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <p class="font-bold text-gray-800 mb-1">Order #${String(order.id).slice(-8)}</p>
+                  <p class="text-sm text-gray-600 mb-2">${order.items.map(i => i.name).join(', ')}</p>
+                  ${order.customer ? `
+                    <div class="text-xs text-gray-500 space-y-1">
+                      <p><i class="fas fa-user w-4"></i> ${order.customer.name}</p>
+                      <p><i class="fas fa-phone w-4"></i> ${order.customer.phone}</p>
+                      <p><i class="fas fa-map-marker-alt w-4"></i> ${order.customer.address}</p>
+                    </div>
+                  ` : ''}
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-lg">
+                      <i class="fas fa-calendar-alt mr-1"></i>
+                      ${new Date(order.date).toLocaleDateString()}
+                    </span>
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-lg">
+                      <i class="fas fa-box mr-1"></i>
+                      ${order.items.length} item${order.items.length > 1 ? 's' : ''}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col items-end gap-3">
+              <div class="text-right">
+                <p class="text-sm text-gray-500">Total Amount</p>
+                <p class="text-2xl font-bold" style="color:var(--pharma-teal)">GHS ${order.total.toFixed(2)}</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold px-3 py-1.5 rounded-full border ${statusClass} flex items-center gap-1.5">
+                  <i class="fas ${statusIcon}"></i>
+                  ${order.status}
+                </span>
+                <button onclick="deleteOrder(${order.id})" class="text-xs text-gray-500 hover:text-red-600 px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-red-50 transition flex items-center gap-1.5">
+                  <i class="fas fa-trash"></i>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `}).join('');
+      
+      updateStats();
+    }
+
+    // Render subscriptions
+    function renderSubscriptions() {
+      const subscription = getSubscription();
+      
+      if (!subscription) {
+        subscriptionsList.innerHTML = `
+          <div class="text-center py-12">
+            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-sync text-gray-300 text-3xl"></i>
+            </div>
+            <p class="text-gray-500 text-lg mb-2">No active subscription</p>
+            <p class="text-gray-400 text-sm mb-4">Subscribe to get automatic monthly refills</p>
+            <a href="subscribe.html" class="inline-block px-6 py-3 bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 text-white rounded-xl hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 transition font-semibold shadow-lg">
+              Start Subscription
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const planPrices = { basic: 50, standard: 80, premium: 120 };
+      const planPrice = planPrices[subscription.plan] || 80;
+
+      subscriptionsList.innerHTML = `
+        <div class="border-2 border-[var(--pharma-teal)] rounded-2xl p-6 bg-gradient-to-br from-teal-50 to-white">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--pharma-teal)] to-teal-600 flex items-center justify-center text-white shadow-lg">
+                <i class="fas fa-sync-alt text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-gray-800 capitalize">${subscription.plan} Plan</h4>
+                <p class="text-sm text-gray-600">Auto-refill ${subscription.frequency}</p>
+              </div>
+            </div>
+            <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-green-200">
+              <i class="fas fa-check-circle mr-1"></i>
+              Active
+            </span>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+              <p class="text-sm text-gray-500 mb-1">Monthly Cost</p>
+              <p class="text-2xl font-bold" style="color:var(--pharma-teal)">GHS ${planPrice}</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200">
+              <p class="text-sm text-gray-500 mb-1">Next Delivery</p>
+              <p class="text-lg font-semibold text-gray-800">${new Date(Date.now() + 30*24*60*60*1000).toLocaleDateString()}</p>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="manageSubscription()" class="flex-1 bg-white border-2 border-[var(--pharma-teal)] text-[var(--pharma-teal)] px-4 py-2.5 rounded-xl font-semibold hover:bg-teal-50 transition">
+              Manage Plan
+            </button>
+            <button onclick="cancelSubscription()" class="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl font-semibold transition">
+              Cancel Subscription
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render prescriptions
+    function renderPrescriptions() {
+      prescriptionsList.innerHTML = `
+        <div class="text-center py-12">
+          <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-prescription text-gray-300 text-3xl"></i>
+          </div>
+          <p class="text-gray-500 text-lg mb-2">No prescriptions yet</p>
+          <p class="text-gray-400 text-sm">Upload your prescriptions for easy refills</p>
+        </div>
+      `;
+    }
+
+    // Delete order
+    window.deleteOrder = function(orderId) {
+      if (confirm('Are you sure you want to delete this order?')) {
+        let orders = getOrders();
+        orders = orders.filter(o => o.id !== orderId);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        renderOrders();
+        showToast('Order deleted successfully', 'success');
+      }
+    }
+
+    // Cancel subscription
+    window.cancelSubscription = function() {
+      if (confirm('Are you sure you want to cancel your subscription?')) {
+        localStorage.removeItem('subscription');
+        renderSubscriptions();
+        showToast('Subscription cancelled', 'success');
+      }
+    }
+
+    // Manage subscription
+    window.manageSubscription = function() {
+      window.location.href = 'subscribe.html';
+    }
+
+    // Tab switching
+    const tabs = {
+      orders: { btn: document.getElementById('tab-orders'), section: document.getElementById('orders-section') },
+      subscriptions: { btn: document.getElementById('tab-subscriptions'), section: document.getElementById('subscriptions-section') },
+      prescriptions: { btn: document.getElementById('tab-prescriptions'), section: document.getElementById('prescriptions-section') }
+    };
+
+    function switchTab(tabName) {
+      Object.keys(tabs).forEach(key => {
+        tabs[key].btn.classList.remove('active');
+        tabs[key].section.classList.add('hidden');
+      });
+      tabs[tabName].btn.classList.add('active');
+      tabs[tabName].section.classList.remove('hidden');
+    }
+
+    document.getElementById('tab-orders').addEventListener('click', () => switchTab('orders'));
+    document.getElementById('tab-subscriptions').addEventListener('click', () => switchTab('subscriptions'));
+    document.getElementById('tab-prescriptions').addEventListener('click', () => switchTab('prescriptions'));
+
+    // Refresh orders
+    document.getElementById('refresh-orders').addEventListener('click', () => {
+      const icon = document.querySelector('#refresh-orders i');
+      icon.classList.add('fa-spin');
+      setTimeout(() => {
+        renderOrders();
+        icon.classList.remove('fa-spin');
+        showToast('Orders refreshed', 'success');
+      }, 800);
+    });
+
+    // Sign out
+    document.getElementById('signout-btn').addEventListener('click', () => {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'login.html';
+    });
+
+    // Edit profile
+    document.getElementById('edit-profile-btn').addEventListener('click', () => {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const newName = prompt('Enter your new name:', currentUser.name || '');
+      if (newName && newName.trim()) {
+        currentUser.name = newName.trim();
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        loadUser();
+        showToast('Profile updated successfully', 'success');
+      }
+    });
+
+    // Add prescription
+    document.getElementById('add-prescription').addEventListener('click', () => {
+      showToast('Upload prescription feature coming soon', 'info');
+    });
+
+    // Contact support
+    window.contactSupport = function() {
+      showToast('Opening support chat...', 'info');
+      setTimeout(() => {
+        alert('Support Contact:\n\nPhone: +233 24 123 4567\nEmail: support@pharmahub.com\nWhatsApp: +233 24 123 4567\n\nWe\'re here to help 24/7!');
+      }, 500);
+    }
+
+    // Toast notification
+    function showToast(message, type = 'success') {
+      const bgColors = {
+        success: 'bg-green-500',
+        error: 'bg-red-500',
+        info: 'bg-blue-500'
+      };
+      
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-6 right-6 ${bgColors[type]} text-white px-6 py-3 rounded-xl shadow-lg font-medium z-50 animate-slide-in`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Auto-refresh orders every 30 seconds
+    setInterval(() => {
+      const currentSection = document.getElementById('orders-section');
+      if (!currentSection.classList.contains('hidden')) {
+        renderOrders();
+      }
+    }, 30000);
+
+    // Check for new orders notification
+    let lastOrderCount = getOrders().length;
+    setInterval(() => {
+      const currentOrderCount = getOrders().length;
+      if (currentOrderCount > lastOrderCount) {
+        showToast('New order received!', 'success');
+        renderOrders();
+      }
+      lastOrderCount = currentOrderCount;
+    }, 5000);
+
+    // Initialize
+    loadUser();
+    renderOrders();
+    renderSubscriptions();
+    renderPrescriptions();
+  </script>
+
+</body>
+</html>

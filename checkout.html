@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout | Pharma Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --pharma-teal: #007C7A;
+      --pharma-teal-hover: #006b69;
+      --pharma-gray: #6b7280;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .loader {
+      border: 3px solid #ffffff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .payment-method {
+      transition: all 0.3s ease;
+    }
+
+    .payment-method:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 124, 122, 0.15);
+    }
+
+    .payment-method.selected {
+      border-color: var(--pharma-teal);
+      background: #f0fdfa;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-teal-50/30 text-gray-800 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--pharma-teal)] to-teal-600 flex items-center justify-center text-white font-bold text-lg">
+          P
+        </div>
+        <h1 class="text-xl font-bold" style="color:var(--pharma-teal)">Pharma Hub</h1>
+      </div>
+      <a href="cart.html" class="text-sm text-[var(--pharma-teal)] hover:text-[var(--pharma-teal-hover)] font-medium transition flex items-center gap-1">
+        <span>←</span> Back to Cart
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Progress Steps -->
+    <div class="mb-8 animate-slide-in">
+      <div class="flex items-center justify-center gap-2">
+        <div class="flex items-center">
+          <div class="w-8 h-8 rounded-full bg-[var(--pharma-teal)] text-white flex items-center justify-center text-sm font-semibold">
+            ✓
+          </div>
+          <span class="ml-2 text-sm font-medium text-gray-700">Cart</span>
+        </div>
+        <div class="w-16 h-0.5 bg-[var(--pharma-teal)]"></div>
+        <div class="flex items-center">
+          <div class="w-8 h-8 rounded-full bg-[var(--pharma-teal)] text-white flex items-center justify-center text-sm font-semibold">
+            2
+          </div>
+          <span class="ml-2 text-sm font-medium text-[var(--pharma-teal)]">Checkout</span>
+        </div>
+        <div class="w-16 h-0.5 bg-gray-300"></div>
+        <div class="flex items-center">
+          <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-semibold">
+            3
+          </div>
+          <span class="ml-2 text-sm font-medium text-gray-500">Complete</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Left Side - Order Details & Payment -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Customer Information -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 animate-slide-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-[var(--pharma-teal)]">
+              👤
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800">Customer Information</h3>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+              <input type="text" id="customer-name" placeholder="wo din wai" 
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent outline-none transition">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+              <input type="tel" id="customer-phone" placeholder="024 XXX XXXX" 
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent outline-none transition">
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <input type="email" id="customer-email" placeholder="customer@example.com" 
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent outline-none transition">
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Address *</label>
+              <textarea id="customer-address" placeholder="Enter your delivery address" rows="2"
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[var(--pharma-teal)] focus:border-transparent outline-none transition resize-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 animate-slide-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-[var(--pharma-teal)]">
+              💳
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800">Payment Method</h3>
+          </div>
+
+          <div class="space-y-3">
+            <div class="payment-method selected border-2 rounded-xl p-4 cursor-pointer" onclick="selectPayment('paystack')">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment" value="paystack" checked class="w-5 h-5 text-[var(--pharma-teal)]">
+                  <div>
+                    <p class="font-semibold text-gray-800">Paystack</p>
+                    <p class="text-sm text-gray-500">Card, Mobile Money, Bank Transfer</p>
+                  </div>
+                </div>
+                <div class="text-2xl">🔒</div>
+              </div>
+            </div>
+
+            <div class="payment-method border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectPayment('demo')">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment" value="demo" class="w-5 h-5 text-[var(--pharma-teal)]">
+                  <div>
+                    <p class="font-semibold text-gray-800">Demo Payment</p>
+                    <p class="text-sm text-gray-500">For testing without real payment</p>
+                  </div>
+                </div>
+                <div class="text-2xl">🧪</div>
+              </div>
+            </div>
+          </div>
+
+          <button id="checkout-btn" class="w-full mt-6 bg-gradient-to-r from-[var(--pharma-teal)] to-teal-600 hover:from-[var(--pharma-teal-hover)] hover:to-teal-700 text-white py-4 rounded-xl transition font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <span id="btn-text">Complete Order</span>
+            <div id="btn-loader" class="loader hidden"></div>
+          </button>
+
+          <div class="mt-4 text-center text-sm text-gray-500 flex items-center justify-center gap-2">
+            🔒 Secure payment powered by Paystack
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Order Summary -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-6 animate-slide-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-[var(--pharma-teal)]">
+              🛒
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800">Order Summary</h3>
+          </div>
+
+          <div id="order-items" class="space-y-3 mb-4 max-h-64 overflow-y-auto"></div>
+
+          <div class="border-t border-gray-200 pt-4 space-y-2">
+            <div class="flex justify-between text-sm text-gray-600">
+              <span>Subtotal</span>
+              <span id="subtotal">GHS 0.00</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-600">
+              <span>Shipping</span>
+              <span class="text-[var(--pharma-teal)]">GHS 10.00</span>
+            </div>
+            <div class="flex justify-between text-sm text-gray-600">
+              <span>Processing Fee</span>
+              <span>GHS 5.00</span>
+            </div>
+            <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between font-bold text-lg">
+              <span>Total</span>
+              <span id="total" style="color:var(--pharma-teal)">GHS 0.00</span>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-teal-50 rounded-xl">
+            <p class="text-xs text-[var(--pharma-teal)] font-medium">✓ Free delivery on orders above GHS 200</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-gray-400 text-sm py-6 mt-8">
+    © 2025 Pharma Hub • All rights reserved
+  </footer>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center animate-slide-in">
+      <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-3xl">✓</span>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-2">Order Placed Successfully!</h3>
+      <p class="text-gray-600 mb-6">Thank you for your order. We'll send you a confirmation email shortly.</p>
+      <button onclick="window.location.href='dashboard.html'" class="w-full bg-[var(--pharma-teal)] text-white py-3 rounded-xl font-semibold hover:bg-[var(--pharma-teal-hover)] transition">
+        View Order Status
+      </button>
+    </div>
+  </div>
+
+  <!-- Paystack SDK -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const orderItemsEl = document.getElementById('order-items');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+    let selectedPaymentMethod = 'paystack';
+
+    function selectPayment(method) {
+      selectedPaymentMethod = method;
+      document.querySelectorAll('.payment-method').forEach(el => {
+        el.classList.remove('selected');
+      });
+      event.currentTarget.classList.add('selected');
+      const radio = event.currentTarget.querySelector('input[type="radio"]');
+      radio.checked = true;
+    }
+
+    function renderCheckout() {
+      if (cart.length === 0) {
+        orderItemsEl.innerHTML = '<div class="text-center py-8"><p class="text-gray-500 mb-2">🛒</p><p class="text-gray-500">Your cart is empty</p></div>';
+        document.getElementById('checkout-btn').disabled = true;
+        document.getElementById('checkout-btn').classList.add('opacity-50', 'cursor-not-allowed');
+        return;
+      }
+
+      let subtotal = 0;
+      orderItemsEl.innerHTML = '';
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        orderItemsEl.innerHTML += `
+          <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+            <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl">
+              💊
+            </div>
+            <div class="flex-1">
+              <p class="font-medium text-sm text-gray-800">${item.name}</p>
+              <p class="text-xs text-gray-500">Qty: ${item.qty} × GHS ${item.price.toFixed(2)}</p>
+            </div>
+            <p class="font-semibold text-[var(--pharma-teal)]">GHS ${itemTotal.toFixed(2)}</p>
+          </div>`;
+      });
+
+      const shippingFee = 10;
+      const processingFee = 5;
+      const total = subtotal + shippingFee + processingFee;
+      subtotalEl.textContent = `GHS ${subtotal.toFixed(2)}`;
+      totalEl.textContent = `GHS ${total.toFixed(2)}`;
+    }
+
+    renderCheckout();
+
+    function validateForm() {
+      const name = document.getElementById('customer-name').value.trim();
+      const phone = document.getElementById('customer-phone').value.trim();
+      const email = document.getElementById('customer-email').value.trim();
+      const address = document.getElementById('customer-address').value.trim();
+
+      if (!name || !phone || !email || !address) {
+        alert('Please fill in all required fields');
+        return false;
+      }
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return false;
+      }
+
+      return true;
+    }
+
+    function showLoader() {
+      document.getElementById('btn-text').classList.add('hidden');
+      document.getElementById('btn-loader').classList.remove('hidden');
+      document.getElementById('checkout-btn').disabled = true;
+    }
+
+    function hideLoader() {
+      document.getElementById('btn-text').classList.remove('hidden');
+      document.getElementById('btn-loader').classList.add('hidden');
+      document.getElementById('checkout-btn').disabled = false;
+    }
+
+    function saveOrder(status = 'Pending') {
+      if (!cart.length) return;
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const order = {
+        id: Date.now(),
+        items: cart,
+        total: subtotal + 15,
+        date: new Date().toISOString(),
+        status,
+        customer: {
+          name: document.getElementById('customer-name').value,
+          phone: document.getElementById('customer-phone').value,
+          email: document.getElementById('customer-email').value,
+          address: document.getElementById('customer-address').value
+        }
+      };
+
+      const existing = JSON.parse(localStorage.getItem('orders') || '[]');
+      existing.push(order);
+      localStorage.setItem('orders', JSON.stringify(existing));
+      localStorage.removeItem('cart');
+      
+      document.getElementById('success-modal').classList.remove('hidden');
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      if (!validateForm()) return;
+
+      if (selectedPaymentMethod === 'paystack') {
+        const total = parseFloat(totalEl.textContent.replace('GHS', '').trim());
+        const email = document.getElementById('customer-email').value;
+        
+        let handler = PaystackPop.setup({
+          key: 'pk_test_f0d6b9ae7a1d88e1c3dde3c181d9328d4d95823e',
+          email: email,
+          amount: total * 100,
+          currency: 'GHS',
+          callback: function(response) {
+            console.log('Payment complete:', response);
+            saveOrder('Paid');
+          },
+          onClose: function() {
+            hideLoader();
+          }
+        });
+        showLoader();
+        handler.openIframe();
+      } else {
+        showLoader();
+        setTimeout(() => {
+          hideLoader();
+          saveOrder('Pending');
+        }, 1500);
+      }
+    });
+  </script>
+  <script src="js/toast.js"></script>
+
+
+</body>
+</html>

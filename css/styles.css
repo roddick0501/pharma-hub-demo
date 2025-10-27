@@ -1,0 +1,90 @@
+
+:root{
+  --bg:#f6faf8; --card:#ffffff; --teal:#0f766e; --blue:#2563eb; --muted:#64748b;
+}
+ :root {
+    --pharma-teal: #007C7A;
+    --pharma-teal-hover: #006b69;
+  }
+body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#0f172a;}
+.btn-primary{background:var(--teal); color:white;}
+.btn-accent{background:var(--blue); color:white;}
+.card{background:var(--card); border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06);}
+.small-muted{color:var(--muted); font-size:0.95rem;}
+
+
+
+     :root {
+      --pharma-teal: #007C7A;
+      --pharma-teal-hover: #006b69;
+    }
+
+    button, a, .clickable, .icon-btn {
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    button:hover, .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,124,122,.25);
+      background-color: var(--pharma-teal-hover);
+    }
+
+    a:hover {
+      color: var(--pharma-teal);
+      text-decoration: underline;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    input:hover, select:hover, textarea:hover {
+      border-color: var(--pharma-teal);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--pharma-teal);
+      box-shadow: 0 0 0 2px rgba(0,124,122,.2);
+    }
+
+    .icon-btn svg, .icon svg, .nav-icon svg {
+      transition: transform .2s ease, fill .2s ease;
+    }
+
+    .icon-btn:hover svg, .icon:hover svg, .nav-icon:hover svg {
+      transform: scale(1.1);
+      fill: var(--pharma-teal);
+    }
+
+    .icon-btn:hover {
+      background-color: rgba(0,124,122,.08);
+      border-radius: 50%;
+    }
+ 
+    .toast {
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Teal hover and button consistency */
+.btn-primary {
+  background-color: #007C7A;
+  color: white;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background-color: #006b69;
+}
+a:hover, button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+img:hover {
+  transform: scale(1.03);
+  transition: all 0.3s ease;
+}
+
+

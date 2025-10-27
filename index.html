@@ -105,6 +105,52 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+
+    /* Mobile Responsive Fixes for Home Page */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .max-w-6xl {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Product grid - 2 columns on mobile */
+  #product-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Category filters - wrap better */
+  #category-filters {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .category-btn {
+    font-size: 0.75rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  /* Hero section */
+  .bg-gradient-to-r {
+    padding: 2rem 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Product grid - single column on very small screens */
+  #product-grid {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+  
+  /* Hero search box */
+  .max-w-md {
+    max-width: 100% !important;
+  }
+}
   </style>
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">

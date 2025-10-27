@@ -53,6 +53,34 @@
       border-color: var(--pharma-teal);
       background: #f0fdfa;
     }
+
+    /* Add to existing style section in checkout.html */
+
+/* Mobile Responsive Fixes for Checkout */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .max-w-6xl {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Form grid */
+  .md\\:grid-cols-2 {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+  
+  /* Progress steps - smaller text */
+  .flex.items-center.justify-center.gap-2 {
+    font-size: 0.75rem;
+  }
+  
+  .flex.items-center.justify-center.gap-2 span {
+    display: none;
+  }
+}
   </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-teal-50/30 text-gray-800 min-h-screen">
